@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Barbería Online</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="login-page">
+        <div class="overlay"></div>
+
+        <div class="login-card">
+            <div class="login-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Tu estilo, nuestra pasión.</p>
+            </div>
+
+            <div class="login-right">
+                <h2>Iniciar sesión</h2>
+                <p class="descripcion-login">Accede a tu cuenta para gestionar tus citas.</p>
+
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="mensaje-error">@ViewBag.Mensaje</div>
+                }
+
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="mensaje-exito">@TempData["Mensaje"]</div>
+                }
+
+                @model BarberiaOnlineNueva.Models.Usuario
+
+                <form asp-action="Login" method="post" class="login-form">
+
+                    <div class="input-group-custom">
+                        <label>Correo</label>
+                        <input asp-for="Correo" type="email" placeholder="Ingresa tu correo" required />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Contraseña</label>
+                        <input asp-for="Contrasena" type="password" placeholder="Ingresa tu contraseña" required />
+                    </div>
+
+                    <button type="submit" class="btn-login-main">Iniciar sesión</button>
+
+                </form>
+
+                <div class="login-links">
+                    <span>¿No tienes cuenta?</span>
+                    <a asp-controller="Cuenta" asp-action="Registro">Regístrate aquí</a>
+                </div>
+
+                <div class="volver-inicio">
+                    <a asp-controller="Home" asp-action="Index">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

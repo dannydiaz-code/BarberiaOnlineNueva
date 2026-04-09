@@ -1,0 +1,56 @@
+﻿@model BarberiaOnlineNueva.Models.Barbero
+@{
+    Layout = null;
+    ViewData["Title"] = "Nuevo Barbero";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuevo Barbero - Barbería Online</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="crearbarbero-page">
+        <div class="barbero-overlay"></div>
+
+        <div class="crearbarbero-card">
+            <div class="crearbarbero-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Registra nuevos barberos para ampliar y organizar tu equipo.</p>
+            </div>
+
+            <div class="crearbarbero-right">
+                <h2>Nuevo barbero</h2>
+                <p class="descripcion-registro">Completa la información para registrar un nuevo barbero.</p>
+
+                <form asp-action="Crear" method="post" class="registro-form">
+                    <div class="input-group-custom">
+                        <label>Nombre</label>
+                        <input asp-for="Nombre" />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Especialidad</label>
+                        <input asp-for="Especialidad" />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Teléfono</label>
+                        <input asp-for="Telefono" />
+                    </div>
+
+                    <button type="submit" class="btn-login-main">Guardar barbero</button>
+                </form>
+
+                <div class="volver-inicio">
+                    <a asp-controller="Barbero" asp-action="Index">Volver al listado</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

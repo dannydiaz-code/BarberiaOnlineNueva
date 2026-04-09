@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio - Barbería Online</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="home-page">
+        <div class="overlay"></div>
+
+        <div class="home-card">
+            <div class="home-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Tu estilo, nuestra pasión.</p>
+            </div>
+
+            <div class="home-right">
+                <h2>Bienvenido</h2>
+                <p class="descripcion">
+                    Reserva tu cita de forma rápida, sencilla y segura.
+                </p>
+
+                <div class="botones-home">
+                    <a asp-controller="Cuenta" asp-action="Login" class="btn-home btn-principal">Iniciar sesión</a>
+                    <a asp-controller="Cuenta" asp-action="Registro" class="btn-home btn-secundario">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

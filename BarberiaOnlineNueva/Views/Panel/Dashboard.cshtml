@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Panel Principal";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Principal - Barbería Online</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="panel-page">
+        <div class="overlay"></div>
+
+        <div class="panel-card">
+            <div class="panel-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Gestión rápida, elegante y profesional.</p>
+            </div>
+
+            <div class="panel-right">
+                <div class="panel-top">
+                    <div>
+                        <h2>Panel principal</h2>
+                        <p class="descripcion-panel">Bienvenido al sistema de gestión de Barbería Online.</p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Home" asp-action="Index" class="btn-home btn-secundario">Inicio</a>
+                    </div>
+                </div>
+
+                <div class="panel-grid">
+                    <a asp-controller="Cita" asp-action="Crear" class="panel-box">
+                        <h3>Agendar cita</h3>
+                        <p>Reserva una cita de manera rápida y sencilla.</p>
+                    </a>
+
+                    <a asp-controller="Barbero" asp-action="Index" class="panel-box">
+                        <h3>Barberos</h3>
+                        <p>Consulta y administra la información del equipo.</p>
+                    </a>
+
+                    <a asp-controller="Cita" asp-action="MisCitas" class="panel-box">
+                        <h3>Mis citas</h3>
+                        <p>Revisa las citas registradas en el sistema.</p>
+                    </a>
+
+                    <a asp-controller="Cuenta" asp-action="Logout" class="panel-box">
+                        <h3>Cerrar sesión</h3>
+                        <p>Salir del sistema y volver al acceso principal.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

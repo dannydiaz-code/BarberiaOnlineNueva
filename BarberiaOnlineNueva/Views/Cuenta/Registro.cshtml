@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Registro";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro - Barbería Online</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="registro-page">
+        <div class="overlay"></div>
+
+        <div class="registro-card">
+            <div class="registro-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Tu estilo, nuestra pasión.</p>
+            </div>
+
+            <div class="registro-right">
+                <h2>Crear cuenta</h2>
+                <p class="descripcion-registro">Regístrate para reservar y gestionar tus citas fácilmente.</p>
+
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="mensaje-error">@ViewBag.Mensaje</div>
+                }
+
+                <form asp-action="Registro" method="post" class="registro-form">
+                    <div class="input-group-custom">
+                        <label>Nombre</label>
+                        <input type="text" name="nombre" placeholder="Ingresa tu nombre" required />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Correo</label>
+                        <input type="email" name="correo" placeholder="Ingresa tu correo" required />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Contraseña</label>
+                        <input type="password" name="contrasena" placeholder="Ingresa tu contraseña" required />
+                    </div>
+
+                    <button type="submit" class="btn-login-main">Registrarse</button>
+                </form>
+
+                <div class="login-links">
+                    <span>¿Ya tienes cuenta?</span>
+                    <a asp-controller="Cuenta" asp-action="Login">Inicia sesión aquí</a>
+                </div>
+
+                <div class="volver-inicio">
+                    <a asp-controller="Home" asp-action="Index">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

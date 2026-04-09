@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Panel Administrador";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Administrador</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="panel-page">
+        <div class="overlay"></div>
+
+        <div class="panel-card">
+            <div class="panel-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Gestión administrativa del sistema.</p>
+            </div>
+
+            <div class="panel-right">
+                <div class="panel-top">
+                    <div>
+                        <h2>Panel administrador</h2>
+                        <p class="descripcion-panel">Administra barberos, citas y módulos internos.</p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Cuenta" asp-action="Logout" class="btn-home btn-secundario">Cerrar sesión</a>
+                    </div>
+                </div>
+
+                <div class="panel-grid">
+                    <a asp-controller="Barbero" asp-action="Index" class="panel-box">
+                        <h3>Barberos</h3>
+                        <p>Gestiona el equipo de barberos.</p>
+                    </a>
+
+                    <a asp-controller="Cita" asp-action="VerTodas" class="panel-box">
+                        <h3>Todas las citas</h3>
+                        <p>Consulta todas las reservas registradas.</p>
+                    </a>
+
+                    <a href="#" class="panel-box">
+                        <h3>Servicios</h3>
+                        <p>Administra los servicios disponibles.</p>
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Index" class="panel-box">
+                        <h3>Inicio</h3>
+                        <p>Volver a la pantalla principal.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

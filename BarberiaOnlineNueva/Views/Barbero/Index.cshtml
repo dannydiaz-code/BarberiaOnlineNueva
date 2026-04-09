@@ -1,0 +1,73 @@
+﻿@model List<BarberiaOnlineNueva.Models.Barbero>
+@{
+    Layout = null;
+    ViewData["Title"] = "Barberos";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barberos - Barbería Online</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="barbero-page">
+        <div class="barbero-overlay"></div>
+
+        <div class="barbero-card">
+            <div class="barbero-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Consulta y administra el equipo de trabajo de forma organizada.</p>
+            </div>
+
+            <div class="barbero-right">
+                <div class="barbero-top">
+                    <div>
+                        <h2>Barberos</h2>
+                        <p class="descripcion-panel">Listado general de barberos registrados en el sistema.</p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Panel" asp-action="Dashboard" class="btn-home btn-secundario">Volver al panel</a>
+                        <a asp-action="Crear" class="btn-home btn-principal">Nuevo barbero</a>
+                    </div>
+                </div>
+
+                @if (Model == null || Model.Count == 0)
+                {
+                    <div class="mensaje-vacio">
+                        Aún no hay barberos registrados.
+                    </div>
+                }
+                else
+                {
+                    <div class="tabla-citas-container">
+                        <table class="tabla-citas">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Especialidad</th>
+                                    <th>Teléfono</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var b in Model)
+                                {
+                                    <tr>
+                                        <td>@b.Nombre</td>
+                                        <td>@b.Especialidad</td>
+                                        <td>@b.Telefono</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

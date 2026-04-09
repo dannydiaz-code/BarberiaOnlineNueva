@@ -1,0 +1,95 @@
+﻿@model List<BarberiaOnlineNueva.Models.Cita>
+@{
+    Layout = null;
+    ViewData["Title"] = "Mis Citas";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Citas</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="miscitas-page">
+        <div class="overlay"></div>
+
+        <div class="miscitas-card">
+            <div class="miscitas-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Consulta fácilmente las citas registradas en tu cuenta.</p>
+            </div>
+
+            <div class="miscitas-right">
+                <div class="miscitas-top">
+                    <div>
+                        <h2>Mis citas</h2>
+                        <p class="descripcion-panel">Aquí puedes ver tus citas agendadas.</p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Panel" asp-action="Dashboard" class="btn-home btn-secundario">Volver al panel</a>
+                    </div>
+                </div>
+
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="mensaje-exito">@TempData["Mensaje"]</div>
+                }
+
+                @if (Model == null || Model.Count == 0)
+                {
+                    <div class="mensaje-vacio">
+                        Aún no tienes citas registradas.
+                    </div>
+                }
+                else
+                {
+                    <div class="tabla-citas-container">
+                        <table class="tabla-citas">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Barbero</th>
+                                    <th>Servicio</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cita in Model)
+                                {
+                                    <tr>
+                                        <td>@cita.Fecha.ToString("dd/MM/yyyy")</td>
+                                        <td>@cita.Hora.ToString(@"hh\:mm")</td>
+                                        <td>@cita.NombreBarbero</td>
+                                        <td>@cita.NombreServicio</td>
+                                        <td>@cita.Estado</td>
+                                        <td>
+                                            @if (cita.Estado != "Cancelada")
+                                            {
+                                                <form asp-action="Cancelar" method="post" style="display:inline;">
+                                                    <input type="hidden" name="idCita" value="@cita.IdCita" />
+                                                    <button type="submit" class="btn-cancelar-cita">Cancelar</button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <span class="estado-cancelado">Cancelada</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

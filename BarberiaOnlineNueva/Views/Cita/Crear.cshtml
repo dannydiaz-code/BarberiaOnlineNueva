@@ -1,0 +1,71 @@
+﻿@model BarberiaOnlineNueva.Models.CitaViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Agendar Cita";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendar Cita</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="cita-page">
+        <div class="overlay"></div>
+
+        <div class="cita-card">
+            <div class="cita-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Agenda tu próxima cita con facilidad.</p>
+            </div>
+
+            <div class="cita-right">
+                <h2>Agendar cita</h2>
+                <p class="descripcion-registro">Selecciona el servicio, barbero, fecha y hora.</p>
+
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="mensaje-error">@ViewBag.Mensaje</div>
+                }
+
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="mensaje-exito">@TempData["Mensaje"]</div>
+                }
+
+                <form asp-action="Crear" method="post" class="registro-form">
+                    <div class="input-group-custom">
+                        <label>Barbero</label>
+                        <select asp-for="IdBarbero" asp-items="Model.Barberos"></select>
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Servicio</label>
+                        <select asp-for="IdServicio" asp-items="Model.Servicios"></select>
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Fecha</label>
+                        <input asp-for="Fecha" type="date" />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Hora</label>
+                        <input asp-for="Hora" type="time" />
+                    </div>
+
+                    <button type="submit" class="btn-login-main">Guardar cita</button>
+                </form>
+
+                <div class="volver-inicio">
+                    <a asp-controller="Panel" asp-action="Dashboard">Volver al panel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

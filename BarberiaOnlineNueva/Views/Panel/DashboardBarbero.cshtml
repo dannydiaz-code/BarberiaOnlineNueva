@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Panel Barbero";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Barbero</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="panel-page">
+        <div class="overlay"></div>
+
+        <div class="panel-card">
+            <div class="panel-left">
+                <img src="~/images/logo-barberia.png" alt="Logo Barbería" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Consulta tus citas y tu actividad dentro del sistema.</p>
+            </div>
+
+            <div class="panel-right">
+                <div class="panel-top">
+                    <div>
+                        <h2>Panel barbero</h2>
+                        <p class="descripcion-panel">Accede a tus citas y a tu información de trabajo.</p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Cuenta" asp-action="Logout" class="btn-home btn-secundario">Cerrar sesión</a>
+                    </div>
+                </div>
+
+                <div class="panel-grid">
+                    <a href="#" class="panel-box">
+                        <h3>Mis citas</h3>
+                        <p>Consulta las citas asignadas.</p>
+                    </a>
+
+                    <a asp-controller="Home" asp-action="Index" class="panel-box">
+                        <h3>Inicio</h3>
+                        <p>Volver a la pantalla principal.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

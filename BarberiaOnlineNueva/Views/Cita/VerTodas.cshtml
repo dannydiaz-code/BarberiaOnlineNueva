@@ -1,0 +1,91 @@
+﻿@model List<BarberiaOnlineNueva.Models.Cita>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todas las citas</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <div class="barbero-page">
+        <div class="overlay"></div>
+
+        <div class="barbero-card">
+
+            <!-- LADO IZQUIERDO -->
+            <div class="barbero-left">
+                <img src="~/images/logo-barberia.png" class="logo-barberia" />
+                <h1>Panel Administrador</h1>
+                <p>Gestión completa de citas del sistema.</p>
+            </div>
+
+            <!-- LADO DERECHO -->
+            <div class="barbero-right">
+
+                <div class="barbero-top">
+                    <div>
+                        <h2>Todas las citas</h2>
+                        <p class="descripcion-panel">
+                            Visualiza y administra todas las citas registradas.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Panel" asp-action="DashboardAdmin" class="btn-home btn-secundario">
+                            Volver al panel
+                        </a>
+                    </div>
+                </div>
+
+                @if (Model == null || Model.Count == 0)
+                {
+                    <div class="mensaje-vacio">
+                        No hay citas registradas.
+                    </div>
+                }
+                else
+                {
+                    <div class="tabla-citas-container">
+                        <table class="tabla-citas">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Barbero</th>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var c in Model)
+                                {
+                                    <tr>
+                                        <td>@c.IdUsuario</td>
+                                        <td>@c.IdBarbero</td>
+                                        <td>@c.IdServicio</td>
+                                        <td>@c.Fecha.ToShortDateString()</td>
+                                        <td>@c.Hora</td>
+                                        <td>
+                                            <span class="estado-badge">@c.Estado</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

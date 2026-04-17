@@ -1,24 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BarberiaOnlineNueva.Models;
+using BarberiaOnlineNueva.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BarberiaOnlineNueva.Controllers
 {
     public class PanelController : Controller
     {
+        private readonly CitaService _citaService;
+        private readonly BarberoService _barberoService;
+
+        public PanelController(CitaService citaService, BarberoService barberoService)
+        {
+            _citaService = citaService;
+            _barberoService = barberoService;
+        }
         public IActionResult DashboardAdmin()
         {
-            string rol = HttpContext.Session.GetString("Rol");
+            var rol = HttpContext.Session.GetString("RolUsuario");
 
-            Console.WriteLine("ROL ACTUAL ADMIN: " + rol);
+            Console.WriteLine("ROL EN PANEL ADMIN: " + rol);
 
             if (string.IsNullOrEmpty(rol))
-            {
                 return RedirectToAction("Login", "Cuenta");
-            }
 
-            if (rol.Trim() != "Administrador")
-            {
+            if (rol.Trim().ToLower() != "administrador")
                 return RedirectToAction("Login", "Cuenta");
-            }
 
             return View();
         }
@@ -36,16 +42,46 @@ namespace BarberiaOnlineNueva.Controllers
             return View();
         }
 
+        public IActionResult Dashboard()
+        {
+            string rol = HttpContext.Session.GetString("RolUsuario");
+
+            if (rol == "Administrador")
+                return RedirectToAction("DashboardAdmin");
+
+            if (rol == "Cliente")
+                return RedirectToAction("DashboardCliente");
+
+            return RedirectToAction("Login", "Cuenta");
+        }
+
         public IActionResult DashboardBarbero()
         {
             string rol = HttpContext.Session.GetString("RolUsuario");
 
-            if (rol != "Barbero")
+            if (string.IsNullOrEmpty(rol) || rol.ToLower() != "barbero")
             {
                 return RedirectToAction("Login", "Cuenta");
             }
 
-            return View();
+            int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+            if (idUsuario == null)
+            {
+                return RedirectToAction("Login", "Cuenta");
+            }
+
+            var barbero = _barberoService.ObtenerPorUsuario(idUsuario.Value);
+
+            if (barbero == null)
+            {
+                return Content("Este usuario no está vinculado a un barbero");
+            }
+
+         
+            var citas = _citaService.ObtenerCitasPorBarbero(barbero.IdBarbero) ?? new List<Cita>();
+
+            return View(citas);
         }
     }
 }

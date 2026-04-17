@@ -1,0 +1,84 @@
+﻿@model List<BarberiaOnlineNueva.Models.Cita>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Gestionar Citas";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestionar Citas</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="panel-page">
+        <div class="overlay"></div>
+
+        <div class="panel-card">
+
+            <!-- 🔵 LADO IZQUIERDO -->
+            <div class="panel-left">
+                <img src="~/images/logo-barberia.png" class="logo-barberia" />
+                <h1>Maestro Barberia</h1>
+                <p>Gestiona tus citas de forma eficiente.</p>
+            </div>
+
+            <!-- ⚪ LADO DERECHO -->
+            <div class="panel-right">
+
+                <!-- TOP -->
+                <div class="panel-top">
+                    <div>
+                        <h2>Gestionar citas</h2>
+                        <p class="descripcion-panel">Analiza y filtra tus citas.</p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Panel" asp-action="DashboardBarbero" class="btn-home">Volver</a>
+                        <a asp-controller="Cuenta" asp-action="Logout" class="btn-home btn-secundario">Cerrar sesión</a>
+                    </div>
+                </div>
+
+                <!-- 🔥 DASHBOARD -->
+                <div class="dashboard-barbero">
+                    <div class="card-mini">
+                        <h4>Total</h4>
+                        <span>@Model.Count()</span>
+                    </div>
+
+                    <div class="card-mini">
+                        <h4>Pendientes</h4>
+                        <span>@Model.Count(c => c.Estado == "Pendiente")</span>
+                    </div>
+
+                    <div class="card-mini">
+                        <h4>Realizadas</h4>
+                        <span>@Model.Count(c => c.Estado == "Realizada")</span>
+                    </div>
+
+                    <div class="card-mini">
+                        <h4>Canceladas</h4>
+                        <span>@Model.Count(c => c.Estado == "Cancelada")</span>
+                    </div>
+                </div>
+
+                <!-- 🔍 FILTRO -->
+                <div class="filtro-citas">
+                    <label>Filtrar:</label>
+
+                    <select>
+                        <option value="todas">Todas</option>
+                        <option value="Pendiente">Pendientes</option>
+                        <option value="Realizada">Realizadas</option>
+                        <option value="Cancelada">Canceladas</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

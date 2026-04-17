@@ -1,0 +1,46 @@
+﻿@model List<BarberiaOnlineNueva.Models.Cita>
+
+<div class="login-page">
+    <div class="login-card">
+
+        <!-- IZQUIERDA -->
+        <div class="login-left">
+            <img src="~/images/logo-barberia.png" class="logo-barberia" />
+            <h1>Panel Barbero</h1>
+            <p>Gestiona tus citas asignadas.</p>
+        </div>
+
+        <!-- DERECHA -->
+        <div class="login-right">
+
+            <h2>Mis citas</h2>
+
+            <div class="servicios-grid">
+
+                @foreach (var c in Model)
+                {
+                    <div class="servicio-card">
+
+                        <h3>@c.NombreServicio</h3>
+
+                        <p><strong>Fecha:</strong> @c.Fecha.ToShortDateString()</p>
+                        <p><strong>Hora:</strong> @c.Hora</p>
+                        <p><strong>Estado:</strong> @c.Estado</p>
+
+                        <form asp-action="Completar" method="post">
+                            <input type="hidden" name="id" value="@c.IdCita" />
+
+                            <button class="btn-servicio-editar">
+                                Atender
+                            </button>
+                        </form>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

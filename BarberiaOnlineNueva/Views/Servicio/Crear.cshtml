@@ -1,0 +1,68 @@
+﻿@model BarberiaOnlineNueva.Models.Servicio
+@{
+    Layout = null;
+    ViewData["Title"] = "Nuevo Servicio";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuevo Servicio - Barbería Online</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="crearbarbero-page">
+        <div class="barbero-overlay"></div>
+
+        <div class="crearbarbero-card">
+
+            <!-- IZQUIERDA -->
+            <div class="crearbarbero-left">
+                <img src="~/images/logo-barberia.png" class="logo-barberia" />
+                <h1>Servicios</h1>
+                <p>Agrega nuevos servicios disponibles en tu barbería.</p>
+            </div>
+
+            <!-- DERECHA -->
+            <div class="crearbarbero-right">
+                <h2>Nuevo servicio</h2>
+                <p class="descripcion-registro">
+                    Completa la información para registrar un nuevo servicio.
+                </p>
+
+                <form asp-action="Crear" method="post" class="registro-form">
+
+                    <div class="input-group-custom">
+                        <label>Nombre del servicio</label>
+                        <input asp-for="NombreServicio" required />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Precio</label>
+                        <input asp-for="Precio" type="number" required />
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>Duración (minutos)</label>
+                        <input asp-for="DuracionMinutos" type="number" required />
+                    </div>
+
+                    <button type="submit" class="btn-login-main">
+                        Guardar servicio
+                    </button>
+
+                </form>
+
+                <div class="volver-inicio">
+                    <a asp-controller="Servicio" asp-action="Index">
+                        Volver al listado
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<BarberiaOnlineNueva.Models.Cita>
+
+@{
     Layout = null;
     ViewData["Title"] = "Panel Barbero";
 }
@@ -34,17 +36,91 @@
                     </div>
                 </div>
 
+                <!-- BOTONES -->
                 <div class="panel-grid">
-                    <a href="#" class="panel-box">
-                        <h3>Mis citas</h3>
-                        <p>Consulta las citas asignadas.</p>
+
+                    <a asp-controller="Barbero" asp-action="GestionarCitas" class="panel-box">
+                        <h3>Gestionar citas</h3>
+                        <p>Marca las citas como realizadas o canceladas.</p>
                     </a>
 
                     <a asp-controller="Home" asp-action="Index" class="panel-box">
                         <h3>Inicio</h3>
                         <p>Volver a la pantalla principal.</p>
                     </a>
+
+                    <a asp-controller="Barbero" asp-action="Perfil" class="panel-box">
+                        <h3>Mi perfil</h3>
+                        <p>Edita tu información profesional.</p>
+                    </a>
+
                 </div>
+
+
+                <!-- 🔥 AQUI VAN LAS CITAS -->
+            <div class="panel-citas full-width">
+                    <h3>Listado de citas</h3>
+
+                    @if (!Model.Any())
+                    {
+                        <p>No tienes citas asignadas.</p>
+                    }
+                    else
+                    {
+                        <table class="tabla-citas">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th> 
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var cita in Model)
+                                {
+                                    <tr>
+                                        <td>@cita.NombreCliente</td>
+                                        <td>@cita.NombreServicio</td>
+                                        <td>@cita.Fecha.ToShortDateString()</td>
+                                        <td>@cita.Hora</td>
+                                        <td>@cita.Estado</td>
+
+                                       
+                                        <td>
+                                            @if (cita.Estado == "Pendiente")
+                                            {
+                                                <a asp-controller="Cita"
+                                                   asp-action="CambiarEstado"
+                                                   asp-route-id="@cita.IdCita"
+                                                   asp-route-estado="Realizada"
+                                                   class="btn-accion btn-ok">
+                                                    ✔
+                                                </a>
+
+                                                <a asp-controller="Cita"
+                                                   asp-action="CambiarEstado"
+                                                   asp-route-id="@cita.IdCita"
+                                                   asp-route-estado="Cancelada"
+                                                   class="btn-accion btn-cancel">
+                                                    ✖
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <span style="color: gray;">Sin acciones</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+
             </div>
         </div>
     </div>

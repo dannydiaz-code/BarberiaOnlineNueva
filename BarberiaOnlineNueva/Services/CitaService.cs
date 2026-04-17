@@ -1,5 +1,6 @@
 ﻿using BarberiaOnlineNueva.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace BarberiaOnlineNueva.Services
 {
@@ -38,11 +39,12 @@ namespace BarberiaOnlineNueva.Services
         {
             using (SqlConnection conexion = _conexionService.ObtenerConexion())
             {
-                string query = @"SELECT COUNT(*) 
-                                 FROM Citas
-                                 WHERE IdBarbero = @IdBarbero
-                                 AND Fecha = @Fecha
-                                 AND Hora = @Hora";
+                string query = @"SELECT COUNT(*)
+                 FROM Citas
+                 WHERE IdBarbero = @IdBarbero
+                 AND Fecha = @Fecha
+                 AND Hora = @Hora
+                 AND Estado = 'Pendiente'";
 
                 using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
@@ -82,7 +84,7 @@ namespace BarberiaOnlineNueva.Services
 
                 using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
-                    cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                    cmd.Parameters.Add("@IdUsuario", SqlDbType.Int).Value = idUsuario;
 
                     conexion.Open();
 
@@ -121,6 +123,106 @@ namespace BarberiaOnlineNueva.Services
                 {
                     cmd.Parameters.AddWithValue("@IdCita", idCita);
                     cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
+
+                    conexion.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public List<Cita> ObtenerTodasLasCitas()
+        {
+            List<Cita> lista = new List<Cita>();
+
+            using (SqlConnection conexion = _conexionService.ObtenerConexion())
+            {
+                string query = @"SELECT * FROM Citas ORDER BY Fecha DESC, Hora DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    conexion.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Cita
+                            {
+                                IdCita = Convert.ToInt32(reader["IdCita"]),
+                                IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
+                                IdBarbero = Convert.ToInt32(reader["IdBarbero"]),
+                                IdServicio = Convert.ToInt32(reader["IdServicio"]),
+                                Fecha = Convert.ToDateTime(reader["Fecha"]),
+                                Hora = (TimeSpan)reader["Hora"],
+                                Estado = reader["Estado"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+        public List<Cita> ObtenerCitasPorBarbero(int idBarbero)
+        {
+            List<Cita> lista = new List<Cita>();
+
+            using (SqlConnection conexion = _conexionService.ObtenerConexion())
+            {
+                string query = @"
+            SELECT 
+                c.IdCita,
+                c.IdBarbero,
+                c.IdUsuario,
+                c.Fecha,
+                c.Hora,
+                c.Estado,
+                s.NombreServicio,
+                u.Nombre AS NombreCliente
+            FROM Citas c
+            INNER JOIN Servicios s ON c.IdServicio = s.IdServicio
+            INNER JOIN Usuarios u ON c.IdUsuario = u.IdUsuario
+            WHERE c.IdBarbero = @IdBarbero
+            ORDER BY c.Fecha, c.Hora";
+
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@IdBarbero", idBarbero);
+
+                    conexion.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(new Cita
+                            {
+                                IdCita = (int)reader["IdCita"],
+                                IdBarbero = (int)reader["IdBarbero"],
+                                IdUsuario = (int)reader["IdUsuario"],
+                                Fecha = (DateTime)reader["Fecha"],
+                                Hora = (TimeSpan)reader["Hora"],
+                                Estado = reader["Estado"].ToString(),
+                                NombreServicio = reader["NombreServicio"].ToString(),
+                                NombreCliente = reader["NombreCliente"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        public void CambiarEstado(int idCita, string estado)
+        {
+            using (SqlConnection conexion = _conexionService.ObtenerConexion())
+            {
+                string query = "UPDATE Citas SET Estado = @Estado WHERE IdCita = @IdCita";
+
+                using (SqlCommand cmd = new SqlCommand(query, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@Estado", estado);
+                    cmd.Parameters.AddWithValue("@IdCita", idCita);
 
                     conexion.Open();
                     cmd.ExecuteNonQuery();

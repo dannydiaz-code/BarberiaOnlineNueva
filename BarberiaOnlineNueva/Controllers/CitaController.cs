@@ -112,6 +112,7 @@ namespace BarberiaOnlineNueva.Controllers
             return View(citas);
         }
 
+
         [HttpPost]
         public IActionResult Cancelar(int idCita)
         {
@@ -126,6 +127,26 @@ namespace BarberiaOnlineNueva.Controllers
 
             TempData["Mensaje"] = "La cita fue cancelada correctamente.";
             return RedirectToAction("MisCitas");
+        }
+
+        public IActionResult VerTodas()
+        {
+            var rol = HttpContext.Session.GetString("RolUsuario");
+
+            if (string.IsNullOrEmpty(rol) || rol != "Administrador")
+            {
+                return RedirectToAction("Login", "Cuenta");
+            }
+
+            var citas = _citaService.ObtenerTodasLasCitas();
+
+            return View(citas);
+        }
+
+        public IActionResult CambiarEstado(int id, string estado)
+        {
+            _citaService.CambiarEstado(id, estado);
+            return RedirectToAction("DashboardBarbero", "Panel");
         }
     }
 }

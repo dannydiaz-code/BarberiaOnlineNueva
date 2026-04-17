@@ -1,0 +1,73 @@
+﻿@model List<BarberiaOnlineNueva.Models.Barbero>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Barberos disponibles</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+    <div class="barbero-page">
+
+        <div class="barbero-card">
+
+            <div class="barbero-left">
+                <img src="~/images/logo-barberia.png" class="logo-barberia" />
+                <h1>El Maestro Barbería</h1>
+                <p>Selecciona tu barbero ideal y agenda tu cita fácilmente.</p>
+            </div>
+
+    
+            <div class="barbero-right">
+
+                <div class="barbero-top">
+                    <div>
+                        <h2>Barberos disponibles</h2>
+                        <p class="descripcion-panel">
+                            Elige uno y reserva tu cita.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Panel" asp-action="DashboardCliente" class="btn-home btn-secundario">
+                            Volver
+                        </a>
+                    </div>
+                </div>
+
+     
+                <div class="barberos-grid">
+
+                    @foreach (var b in Model)
+                    {
+                        <div class="barbero-box">
+
+                            <h3>@b.Nombre</h3>
+                            <p>@b.Especialidad</p>
+                            <span>📞 @b.Telefono</span>
+                            <p><strong>Experiencia:</strong> @b.Experiencia</p>
+                            <p><strong>Sobre mí:</strong> @b.Descripcion</p>
+
+                            <a asp-controller="Cita" asp-action="Crear" class="btn-home btn-principal">
+                                Reservar
+                            </a>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

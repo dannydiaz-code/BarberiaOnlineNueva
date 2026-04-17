@@ -1,0 +1,75 @@
+﻿@model BarberiaOnlineNueva.Models.Barbero
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Mi perfil</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+    <div class="panel-page">
+        <div class="overlay"></div>
+
+        <div class="panel-card">
+
+          
+            <div class="panel-left">
+                <img src="~/images/logo-barberia.png" class="logo-barberia" />
+                <h1>Mi perfil</h1>
+                <p>Actualiza tu información profesional.</p>
+            </div>
+
+           
+            <div class="panel-right">
+
+                <div class="panel-top">
+                    <div>
+                        <h2>Editar perfil</h2>
+                        <p class="descripcion-panel">Esta información será visible para los clientes.</p>
+                    </div>
+
+                    <div class="panel-actions-top">
+                        <a asp-controller="Panel" asp-action="DashboardBarbero" class="btn-home btn-secundario">
+                            Volver
+                        </a>
+                    </div>
+                </div>
+
+                
+                <div class="panel-box">
+
+                    <form asp-action="Perfil" method="post">
+
+                        <input type="hidden" asp-for="IdBarbero" />
+
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea asp-for="Descripcion" class="input-form"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Experiencia</label>
+                            <input asp-for="Experiencia" class="input-form" />
+                        </div>
+
+                        <button type="submit" class="btn-home btn-principal">
+                            Guardar cambios
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

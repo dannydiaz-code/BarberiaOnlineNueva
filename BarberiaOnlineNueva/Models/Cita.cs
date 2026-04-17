@@ -11,5 +11,6 @@
         public string Estado { get; set; }
         public string NombreBarbero { get; set; }
         public string NombreServicio { get; set; }
+        public string NombreCliente { get; set; }
     }
 }

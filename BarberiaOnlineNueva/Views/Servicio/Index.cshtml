@@ -1,0 +1,93 @@
+﻿@model List<BarberiaOnlineNueva.Models.Servicio>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Servicios</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert-error">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
+
+<body>
+
+    <div class="login-page">
+        <div class="login-card">
+
+            <!-- IZQUIERDA -->
+            <div class="login-left">
+                <img src="~/images/logo-barberia.png" class="logo-barberia" />
+                <h1>Servicios</h1>
+                <p>Administra los servicios disponibles</p>
+            </div>
+
+            <!-- DERECHA -->
+            <!-- DERECHA -->
+            <div class="login-right">
+
+                <div class="header-servicios">
+                    <h2>Lista de servicios</h2>
+
+                    <div class="acciones-header">
+                        <a asp-controller="Servicio" asp-action="Crear" class="btn-crear">
+                            + Nuevo servicio
+                        </a>
+
+                        <a asp-controller="Panel" asp-action="DashboardAdmin" class="btn-volver-top">
+                            Volver al panel
+                        </a>
+                    </div>
+                </div>
+
+                <div class="servicios-grid">
+                    @foreach (var s in Model)
+                    {
+                        <div class="servicio-card">
+
+                            <div class="servicio-info">
+                                <h3>@s.NombreServicio</h3>
+                                <p>$@s.Precio</p>
+                            </div>
+
+                            <div class="servicio-acciones">
+
+                                <a asp-action="Editar" asp-route-id="@s.IdServicio" class="btn-servicio">
+                                    Editar
+                                </a>
+
+                                <form asp-action="EliminarServicio" method="post" class="form-eliminar">
+                                    <input type="hidden" name="id" value="@s.IdServicio" />
+                                    <button type="submit" class="btn-servicio eliminar">
+                                        Eliminar
+                                    </button>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

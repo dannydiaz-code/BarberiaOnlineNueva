@@ -9,6 +9,7 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<BarberoService>();
 builder.Services.AddScoped<CitaService>();
 builder.Services.AddScoped<ServicioService>();
+builder.Services.AddScoped<EmailService>();
 builder.Services.AddSession();
 
 var app = builder.Build();

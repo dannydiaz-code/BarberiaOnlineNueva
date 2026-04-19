@@ -135,7 +135,20 @@ namespace BarberiaOnlineNueva.Services
 
             using (SqlConnection conexion = _conexionService.ObtenerConexion())
             {
-                string query = @"SELECT * FROM Citas ORDER BY Fecha DESC, Hora DESC";
+                string query = @"
+                                SELECT 
+                                    c.IdCita,
+                                    c.Fecha,
+                                    c.Hora,
+                                    c.Estado,
+                                    u.Nombre AS NombreUsuario,
+                                    b.Nombre AS NombreBarbero,
+                                    s.NombreServicio AS NombreServicio
+                                FROM Citas c
+                                INNER JOIN Usuarios u ON c.IdUsuario = u.IdUsuario
+                                INNER JOIN Barberos b ON c.IdBarbero = b.IdBarbero
+                                INNER JOIN Servicios s ON c.IdServicio = s.IdServicio
+                                ORDER BY c.Fecha DESC, c.Hora DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conexion))
                 {
@@ -148,12 +161,12 @@ namespace BarberiaOnlineNueva.Services
                             lista.Add(new Cita
                             {
                                 IdCita = Convert.ToInt32(reader["IdCita"]),
-                                IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
-                                IdBarbero = Convert.ToInt32(reader["IdBarbero"]),
-                                IdServicio = Convert.ToInt32(reader["IdServicio"]),
                                 Fecha = Convert.ToDateTime(reader["Fecha"]),
                                 Hora = (TimeSpan)reader["Hora"],
-                                Estado = reader["Estado"].ToString()
+                                Estado = reader["Estado"].ToString(),
+                                NombreUsuario = reader["NombreUsuario"].ToString(),
+                                NombreBarbero = reader["NombreBarbero"].ToString(),
+                                NombreServicio = reader["NombreServicio"].ToString()
                             });
                         }
                     }

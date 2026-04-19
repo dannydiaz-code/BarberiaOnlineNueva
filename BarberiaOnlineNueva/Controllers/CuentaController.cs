@@ -7,10 +7,12 @@ namespace BarberiaOnlineNueva.Controllers
     public class CuentaController : Controller
     {
         private readonly UsuarioService _usuarioService;
+        private readonly EmailService _emailService;
 
-        public CuentaController(UsuarioService usuarioService)
+        public CuentaController(UsuarioService usuarioService, EmailService emailService)
         {
             _usuarioService = usuarioService;
+            _emailService = emailService;
         }
 
 
@@ -78,6 +80,54 @@ namespace BarberiaOnlineNueva.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Recuperar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Recuperar(string correo)
+        {
+            var usuario = _usuarioService.ObtenerPorCorreo(correo);
+
+            if (usuario == null)
+            {
+                ViewBag.Error = "Correo no encontrado";
+                return View();
+            }
+
+            var token = _usuarioService.GenerarToken(usuario.IdUsuario);
+
+            
+            string link = $"https://localhost:7212/Cuenta/ResetPassword?token={token}";
+
+            _emailService.EnviarCorreo(correo, "Recuperar contraseña", link);
+
+            return View();
+        }
+
+        public IActionResult ResetPassword(string token)
+        {
+            ViewBag.Token = token;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(string token, string nuevaPassword)
+        {
+            var idUsuario = _usuarioService.ValidarToken(token);
+
+            if (idUsuario == null)
+            {
+                return Content("Token inválido o expirado");
+            }
+
+            _usuarioService.ActualizarPassword(idUsuario.Value, nuevaPassword);
+
+            return RedirectToAction("Login");
         }
     }
 }

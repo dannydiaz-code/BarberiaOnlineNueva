@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Recuperar contraseña";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recuperar contraseña</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="login-card">
+
+            <!-- IZQUIERDA -->
+            <div class="login-left">
+                <img src="~/images/logo-barberia.png" class="logo-barberia" />
+                <h1>El Maestro Barberia</h1>
+                <p>Recupera el acceso a tu cuenta de forma segura.</p>
+            </div>
+
+            <!-- DERECHA -->
+            <div class="login-right">
+                <h2>Recuperar contraseña</h2>
+                <p>Ingresa tu correo para generar un enlace de recuperación.</p>
+
+                <!-- FORMULARIO -->
+                <form asp-action="Recuperar" method="post">
+
+                    <div class="input-group-custom">
+                        <label>Correo</label>
+                        <input type="email" name="correo" required />
+                    </div>
+
+                    <button type="submit" class="btn-login-main">
+                        Generar enlace
+                    </button>
+
+                </form>
+
+                <!-- ERROR -->
+                @if (ViewBag.Error != null)
+                {
+                    <p style="color:red; margin-top:10px;">
+                        @ViewBag.Error
+                    </p>
+                }
+
+                <!-- LINK GENERADO -->
+                @if (ViewBag.Link != null)
+                {
+                    <div style="margin-top:15px;">
+                        <p><strong>Link de recuperación:</strong></p>
+                        <a href="@ViewBag.Link">@ViewBag.Link</a>
+                    </div>
+                }
+
+                <!-- VOLVER -->
+                <div class="login-links">
+                    <a asp-controller="Cuenta" asp-action="Login">
+                        Volver al login
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

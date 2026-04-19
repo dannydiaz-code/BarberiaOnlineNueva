@@ -1571,3 +1571,13 @@ html {
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
+.link-recuperar {
+    font-size: 14px;
+    color: #162447;
+    text-decoration: none;
+}
+
+    .link-recuperar:hover {
+        text-decoration: underline;
+    }

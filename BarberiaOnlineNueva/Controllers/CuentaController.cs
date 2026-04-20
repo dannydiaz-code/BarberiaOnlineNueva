@@ -34,7 +34,8 @@ namespace BarberiaOnlineNueva.Controllers
             }
 
             HttpContext.Session.SetInt32("IdUsuario", user.IdUsuario);
-            HttpContext.Session.SetString("RolUsuario", user.NombreRol.Trim());
+            HttpContext.Session.SetString("RolUsuario", user.NombreRol?.Trim() ?? "");
+            HttpContext.Session.SetString("NombreUsuario", user.Nombre ?? "");
 
             string rol = user.NombreRol.Trim().ToLower();
 
@@ -127,7 +128,8 @@ namespace BarberiaOnlineNueva.Controllers
 
             _usuarioService.ActualizarPassword(idUsuario.Value, nuevaPassword);
 
-            return RedirectToAction("Login");
+            TempData["Mensaje"] = "Contraseña actualizada correctamente";
+            return RedirectToAction("Login", "Cuenta");
         }
     }
 }

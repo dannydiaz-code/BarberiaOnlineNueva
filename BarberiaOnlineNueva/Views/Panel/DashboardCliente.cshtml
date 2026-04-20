@@ -1,6 +1,8 @@
 ﻿@{
     Layout = null;
     ViewData["Title"] = "Panel Cliente";
+
+    var nombre = Context.Session.GetString("NombreUsuario");
 }
 
 <!DOCTYPE html>
@@ -25,7 +27,9 @@
             <div class="panel-right">
                 <div class="panel-top">
                     <div>
-                        <h2>Panel cliente</h2>
+                        <h2>
+                            Bienvenido, @(nombre ?? "usuario") 👋
+                        </h2>
                         <p class="descripcion-panel">Reserva citas, consulta barberos y revisa tu historial.</p>
                     </div>
 

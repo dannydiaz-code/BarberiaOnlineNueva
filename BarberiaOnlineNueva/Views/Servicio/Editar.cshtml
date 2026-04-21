@@ -50,7 +50,8 @@
 
                     <div class="input-group-custom">
                         <label>Duración (minutos)</label>
-                        <input asp-for="DuracionMinutos" type="number" required />
+                        <input asp-for="DuracionMinutos" type="number" min="1" required />
+                        <span asp-validation-for="DuracionMinutos" class="text-danger"></span>
                     </div>
 
                     <button type="submit" class="btn-login-main">

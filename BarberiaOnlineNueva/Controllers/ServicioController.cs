@@ -25,10 +25,15 @@ namespace BarberiaOnlineNueva.Controllers
             return View();
         }
 
-        
+
         [HttpPost]
         public IActionResult Crear(Servicio servicio)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(servicio);
+            }
+
             _servicioService.CrearServicio(servicio);
             return RedirectToAction("Index");
         }
@@ -46,10 +51,14 @@ namespace BarberiaOnlineNueva.Controllers
             return View(servicio);
         }
 
-        // POST
         [HttpPost]
         public IActionResult Editar(Servicio servicio)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(servicio);
+            }
+
             _servicioService.ActualizarServicio(servicio);
             return RedirectToAction("Index");
         }

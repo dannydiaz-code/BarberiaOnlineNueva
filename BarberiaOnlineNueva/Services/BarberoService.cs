@@ -18,11 +18,22 @@ namespace BarberiaOnlineNueva.Services
         {
             using (SqlConnection conexion = _conexionService.ObtenerConexion())
             {
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO Barberos (Nombre, Especialidad, Telefono) VALUES (@Nombre, @Especialidad, @Telefono)", conexion))
+                using (SqlCommand cmd = new SqlCommand(@"
+            INSERT INTO Barberos 
+            (Nombre, Especialidad, Telefono, Estado, IdUsuario, Descripcion, Experiencia)
+            VALUES 
+            (@Nombre, @Especialidad, @Telefono, 1, @IdUsuario, @Descripcion, @Experiencia)
+        ", conexion))
                 {
                     cmd.Parameters.AddWithValue("@Nombre", barbero.Nombre);
                     cmd.Parameters.AddWithValue("@Especialidad", barbero.Especialidad);
                     cmd.Parameters.AddWithValue("@Telefono", barbero.Telefono);
+
+                    
+                    cmd.Parameters.AddWithValue("@IdUsuario", barbero.IdUsuario);
+
+                    cmd.Parameters.AddWithValue("@Descripcion", barbero.Descripcion ?? "");
+                    cmd.Parameters.AddWithValue("@Experiencia", barbero.Experiencia ?? "");
 
                     conexion.Open();
                     cmd.ExecuteNonQuery();

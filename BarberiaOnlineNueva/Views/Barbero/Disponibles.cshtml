@@ -49,14 +49,42 @@
                         <div class="barbero-box">
 
                             <h3>@b.Nombre</h3>
+
+                            <p>
+                                ⭐ @((ViewBag.Promedios[b.IdBarbero]).ToString("0.0"))
+                            </p>
                             <p>@b.Especialidad</p>
                             <span>📞 @b.Telefono</span>
+
                             <p><strong>Experiencia:</strong> @b.Experiencia</p>
                             <p><strong>Sobre mí:</strong> @b.Descripcion</p>
 
                             <a asp-controller="Cita" asp-action="Crear" class="btn-home btn-principal">
                                 Reservar
                             </a>
+
+                           
+                            <form asp-controller="Calificacion" asp-action="Calificar" method="post" style="margin-top:10px;">
+
+                                <input type="hidden" name="idBarbero" value="@b.IdBarbero" />
+
+                                <label>Calificación:</label>
+                                <select name="puntuacion" required>
+                                    <option value="">Selecciona</option>
+                                    <option value="1">⭐</option>
+                                    <option value="2">⭐⭐</option>
+                                    <option value="3">⭐⭐⭐</option>
+                                    <option value="4">⭐⭐⭐⭐</option>
+                                    <option value="5">⭐⭐⭐⭐⭐</option>
+                                </select>
+
+                                <textarea name="comentario" placeholder="Comentario..." style="width:100%; margin-top:5px;"></textarea>
+
+                                <button type="submit" class="btn-home btn-secundario" style="margin-top:5px;">
+                                    Calificar
+                                </button>
+
+                            </form>
 
                         </div>
                     }

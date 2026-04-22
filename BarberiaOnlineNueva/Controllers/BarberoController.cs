@@ -9,17 +9,27 @@ namespace BarberiaOnlineNueva.Controllers
         private readonly BarberoService _barberoService;
         private readonly CitaService _citaService;
         private readonly UsuarioService _usuarioService;
+        private readonly CalificacionService _calificacionService;
 
-        public BarberoController(BarberoService barberoService, CitaService citaService, UsuarioService usuarioService)
+        public BarberoController(BarberoService barberoService, CitaService citaService, UsuarioService usuarioService, CalificacionService calificacionService)
         {
             _barberoService = barberoService;
             _citaService = citaService;
             _usuarioService = usuarioService;
+            _calificacionService = calificacionService;
         }
 
         public IActionResult Disponibles()
         {
             var barberos = _barberoService.ObtenerBarberos();
+
+            ViewBag.Promedios = new Dictionary<int, double>();
+
+            foreach (var b in barberos)
+            {
+                ViewBag.Promedios[b.IdBarbero] = _calificacionService.ObtenerPromedio(b.IdBarbero);
+            }
+
             return View(barberos);
         }
 
@@ -50,13 +60,13 @@ namespace BarberiaOnlineNueva.Controllers
         [HttpPost]
         public IActionResult Crear(Barbero barbero, string correo, string contrasena)
         {
-            // 1️⃣ Crear usuario
+           
             int idUsuario = _usuarioService.CrearUsuario(correo, contrasena, "barbero", barbero.Nombre);
 
-            // 2️⃣ Asignar al barbero
+           
             barbero.IdUsuario = idUsuario;
 
-            // 3️⃣ Guardar barbero
+            
             _barberoService.AgregarBarbero(barbero);
 
             return RedirectToAction("Index");

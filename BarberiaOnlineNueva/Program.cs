@@ -10,6 +10,7 @@ builder.Services.AddScoped<BarberoService>();
 builder.Services.AddScoped<CitaService>();
 builder.Services.AddScoped<ServicioService>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<CalificacionService>();
 builder.Services.AddSession();
 
 var app = builder.Build();

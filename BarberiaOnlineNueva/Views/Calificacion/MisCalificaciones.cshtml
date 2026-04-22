@@ -1,0 +1,98 @@
+﻿@model List<BarberiaOnlineNueva.Models.Calificacion>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Mis Calificaciones";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Calificaciones</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+
+    <div class="panel-page">
+        <div class="overlay"></div>
+
+        <div class="panel-card">
+
+            <!-- IZQUIERDA -->
+            <div class="panel-left">
+                <img src="~/images/logo-barberia.png" alt="Logo" class="logo-barberia" />
+                <h1>El Maestro Barbería</h1>
+                <p>Revisa lo que opinan tus clientes.</p>
+            </div>
+
+            <!-- DERECHA -->
+            <div class="panel-right">
+
+                <div class="panel-top">
+                    <h2>Mis calificaciones ⭐</h2>
+
+                    
+                    <a asp-controller="Panel" asp-action="DashboardBarbero" class="btn-home btn-secundario">
+                        Volver
+                    </a>
+                </div>
+
+                @if (!Model.Any())
+                {
+                    <p>No tienes calificaciones aún.</p>
+                }
+                else
+                {
+                    <div class="panel-citas">
+
+                        @foreach (var c in Model)
+                        {
+                            <div class="panel-box" style="margin-bottom:15px;">
+
+                                @{
+                                    int estrellas = c.Puntuacion;
+                                }
+
+                               
+                                <p style="font-size:18px; color:gold; margin-bottom:5px;">
+                                    @for (int i = 0; i < estrellas; i++)
+                                    {
+                                        <span>★</span>
+                                    }
+
+                                    @for (int i = estrellas; i < 5; i++)
+                                    {
+                                        <span style="color:lightgray;">★</span>
+                                    }
+                                </p>
+
+                                <p style="font-weight:bold; margin-bottom:5px;">
+                                    👤 @c.NombreUsuario
+                                </p>
+
+                                
+                                <p style="margin:5px 0;">
+                                    @c.Comentario
+                                </p>
+
+                                
+                                <small style="opacity:0.7;">
+                                    @c.Fecha.ToShortDateString()
+                                </small>
+
+                            </div>
+                        }
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

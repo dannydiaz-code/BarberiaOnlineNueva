@@ -16,19 +16,19 @@
     <div class="login-page">
         <div class="login-card">
 
-            <!-- IZQUIERDA -->
+           
             <div class="login-left">
                 <img src="~/images/logo-barberia.png" class="logo-barberia" />
                 <h1>El Maestro Barberia</h1>
                 <p>Recupera el acceso a tu cuenta de forma segura.</p>
             </div>
 
-            <!-- DERECHA -->
+           
             <div class="login-right">
                 <h2>Recuperar contraseña</h2>
                 <p>Ingresa tu correo para generar un enlace de recuperación.</p>
 
-                <!-- FORMULARIO -->
+                
                 <form asp-action="Recuperar" method="post">
 
                     <div class="input-group-custom">
@@ -42,7 +42,7 @@
 
                 </form>
 
-                <!-- ERROR -->
+                
                 @if (ViewBag.Error != null)
                 {
                     <p style="color:red; margin-top:10px;">
@@ -50,7 +50,7 @@
                     </p>
                 }
 
-                <!-- LINK GENERADO -->
+                
                 @if (ViewBag.Link != null)
                 {
                     <div style="margin-top:15px;">
@@ -59,7 +59,7 @@
                     </div>
                 }
 
-                <!-- VOLVER -->
+                
                 <div class="login-links">
                     <a asp-controller="Cuenta" asp-action="Login">
                         Volver al login

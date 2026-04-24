@@ -44,7 +44,7 @@ namespace BarberiaOnlineNueva.Controllers
             _servicioService.EliminarServicio(id);
             return RedirectToAction("Index");
         }
-        // GET
+      
         public IActionResult Editar(int id)
         {
             var servicio = _servicioService.ObtenerPorId(id);

@@ -17,19 +17,19 @@
     <div class="login-page">
         <div class="login-card">
 
-            <!-- IZQUIERDA -->
+            
             <div class="login-left">
                 <img src="~/images/logo-barberia.png" class="logo-barberia" />
                 <h1>El Maestro Barberia</h1>
                 <p>Tu estilo, nuestra pasión.</p>
             </div>
 
-            <!-- DERECHA -->
+           
             <div class="login-right">
                 <h2>Crear cuenta</h2>
                 <p>Regístrate para gestionar tus citas fácilmente.</p>
 
-                <!-- VALIDACIONES -->
+               
                 @if (TempData["Error"] != null)
                 {
                     <div class="mensaje-error">
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <!-- VALIDACIONES JS -->
+    
     <partial name="_ValidationScriptsPartial" />
 
 </body>
